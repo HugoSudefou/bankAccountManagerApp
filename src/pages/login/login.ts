@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AuthenticationService } from '../../providers/http-service/http-service';
+import { HomePage } from '../home/home';
 
 /**
  * Generated class for the LoginPage page.
@@ -19,6 +20,7 @@ export class LoginPage {
   user: {email: string, password: string};
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public api: AuthenticationService) {
+    if (localStorage.currentUser) this.navCtrl.push(HomePage)
   }
 
   ionViewDidLoad() {
@@ -30,8 +32,7 @@ export class LoginPage {
     let testApi = this.api.login(this.user);
     testApi.subscribe(
       data => {
-        console.log('data : ')
-        console.log(data)
+        this.navCtrl.push(HomePage)
       },
       error => {
         console.log('error ')
