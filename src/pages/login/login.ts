@@ -32,6 +32,7 @@ export class LoginPage {
     let testApi = this.api.login(this.user);
     testApi.subscribe(
       data => {
+        console.log('Success')
         this.navCtrl.push(HomePage)
       },
       error => {

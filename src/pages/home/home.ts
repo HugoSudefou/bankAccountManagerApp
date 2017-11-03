@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, ViewController } from 'ionic-angular';
 import { MenuController } from 'ionic-angular';
 import {LoginPage} from "../login/login";
 
@@ -9,8 +9,16 @@ import {LoginPage} from "../login/login";
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController, public menuCtrl: MenuController) {
+  constructor(public navCtrl: NavController, public menuCtrl: MenuController, public viewCtrl: ViewController) {
 
+  }
+
+  ionViewWillEnter() {
+    this.viewCtrl.showBackButton(false);
+  }
+
+  openMenu() {
+    this.menuCtrl.open()
   }
 
   logout(){
