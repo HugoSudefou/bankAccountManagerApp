@@ -20,5 +20,33 @@
 
 
 <ion-content padding>
-
+  <ion-item-group>
+    <ion-item bool1="false">
+      Email :
+      <p class="p" (click)="bool1 = !bool1" [hidden]="!bool1">{{user.email}}</p>
+      <p class="p">
+        <input [hidden]="bool1" type="email" [(ngModel)]="userEdit.email" [placeholder]="user.email">
+        <ion-icon (click)="sendEditUser(true)" class="iconPersoSend" (click)="bool1 = !bool1" [hidden]="bool1" name="send"></ion-icon>
+        <ion-icon class="iconPersoClose" (click)="bool1 = !bool1" [hidden]="bool1" name="close"></ion-icon>
+      </p>
+    </ion-item>
+    <ion-item>
+      Prénom :
+      <p class="p" (click)="bool2 = !bool2" [hidden]="!bool2">{{user.first_name}}</p>
+      <p class="p">
+        <input [hidden]="bool2" type="text" [(ngModel)]="userEdit.first_name" [placeholder]="user.first_name">
+        <ion-icon (click)="sendEditUser(false)" class="iconPersoSend" (click)="bool2 = !bool2" [hidden]="bool2" name="send"></ion-icon>
+        <ion-icon class="iconPersoClose" (click)="bool2 = !bool2" [hidden]="bool2" name="close"></ion-icon>
+      </p>
+    </ion-item>
+    <ion-item>
+      Nom :
+      <p class="p" (click)="bool3 = !bool3" [hidden]="!bool3">{{user.last_name}}</p>
+      <p class="p">
+        <input [hidden]="bool3" type="text" [(ngModel)]="userEdit.last_name" [placeholder]="user.last_name">
+        <ion-icon (click)="sendEditUser(false)" class="iconPersoSend" (click)="bool3 = !bool3" [hidden]="bool3" name="send"></ion-icon>
+        <ion-icon class="iconPersoClose" (click)="bool3 = !bool3" [hidden]="bool3" name="close"></ion-icon>
+      </p>
+    </ion-item>
+  </ion-item-group>
 </ion-content>

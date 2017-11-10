@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { AuthenticationService } from '../../providers/http-service/http-service';
 import { HomePage } from '../home/home';
 
@@ -19,8 +19,11 @@ import { HomePage } from '../home/home';
 export class LoginPage {
   user: {email: string, password: string};
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public api: AuthenticationService) {
-    if (localStorage.currentUser) this.navCtrl.push(HomePage)
+  constructor(public navCtrl: NavController, public navParams: NavParams, public api: AuthenticationService, public loadingCtrl: LoadingController) {
+    if (localStorage.currentUser) {
+      this.api.getUser()
+        .subscribe(test => this.navCtrl.push(HomePage))
+    }
   }
 
   ionViewDidLoad() {
@@ -28,16 +31,24 @@ export class LoginPage {
   }
 
   logForm(form) {
+    let loading = this.loadingCtrl.create({
+      spinner: 'hide',
+      content: 'Connection en cour'
+    });
+    loading.present();
+
     this.user = form.value;
-    let testApi = this.api.login(this.user);
-    testApi.subscribe(
+    let login = this.api.login(this.user);
+    login.subscribe(
       data => {
         console.log('Success')
+        loading.dismiss();
         this.navCtrl.push(HomePage)
       },
       error => {
         console.log('error ')
         console.log(error)
+        loading.dismiss();
       });
   }
 
